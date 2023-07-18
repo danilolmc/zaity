@@ -1,0 +1,44 @@
+{
+  "name": "zaity",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "main": "dist/zaity.umd.js",
+  "module": "dist/zaity.js",
+  "types": "dist/zaity.d.ts",
+  "bin": {
+    "zaity": "./dist/bin/zaity.js"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/zaity.js",
+      "require": "./dist/zaity.umd.cjs"
+    }
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "test": "vitest"
+  },
+  "devDependencies": {
+    "@types/chalk": "^2.2.0",
+    "@types/execa": "^2.0.0",
+    "@types/figlet": "^1.5.6",
+    "@types/inquirer": "^9.0.3",
+    "@types/node": "^20.3.1",
+    "@typescript-eslint/eslint-plugin": "^5.59.11",
+    "@typescript-eslint/parser": "^5.59.11",
+    "eslint": "^8.42.0",
+    "typescript": "^5.0.2",
+    "vite": "^4.3.9",
+    "vite-plugin-dts": "^2.3.0",
+    "vitest": "^0.32.0"
+  },
+  "dependencies": {
+    "chalk": "^5.3.0",
+    "execa": "^7.1.1",
+    "figlet": "^1.6.0",
+    "inquirer": "^9.2.7"
+  }
+}
