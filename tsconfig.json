@@ -1,16 +1,10 @@
-
 {
+    "include": ["src/**/*"],
     "compilerOptions": {
-        "target": "esnext",
-        "module": "esnext",
-        "strict": true,
-        "esModuleInterop": true,
-        "skipLibCheck": true,
-        "moduleResolution": "node",
-        "declaration": true,
-        "declarationDir": "dist",
-        "baseUrl": ".",
-        "lib": ["dom", "esnext"]
+      "allowJs": true,
+      "declaration": true,
+      "emitDeclarationOnly": true,
+      "outDir": "dist",
     },
-    "include": ["src"],
-}
+    "exclude": ["node_modules", "bin"]
+  }

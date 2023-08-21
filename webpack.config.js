@@ -1,32 +1,60 @@
 const path = require('path');
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const DtsBundleWebpack = require('dts-webpack-plugin');
 
-module.exports = {
-  entry: './src/index.ts',
+
+module.exports = [{
+  entry: {
+    browser: './src/browser/index.js',
+    node: './src/node/index.js',
+    middlewares: './src/middlewares/index.js'
+  },
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: '[name].js',
+    filename: '[name].cjs.js',
     library: 'zaity',
-    libraryTarget: 'umd',
-  },
-  resolve: {
-    extensions: ['.ts', '.js'],
-
+    libraryTarget: 'commonjs2',
   },
   module: {
     rules: [
       {
-        test: /\.ts$/,
-        use: 'ts-loader',
+        test: /\.js$/,
+        use: 'babel-loader',
         exclude: /node_modules/,
       },
     ],
   },
+  plugins: [
+    new CleanWebpackPlugin(),
+    new DtsBundleWebpack({
+      name: "browser",
+      main: "dist/browser.d.ts",
+    })
+  ],
   optimization: {
     splitChunks: {
       chunks: 'all',
-    },
+    }
   },
   externals: {
-    '@aws-sdk/client-transcribe': 'AWS',
+    '@aws-sdk/client-transcribe': '@aws-sdk/client-transcribe',
+    'socket.io-client': 'socket.io-client'
   },
-};
+},
+{
+  entry: {
+    browser: './src/browser/index.js',
+    node: './src/node/index.js',
+    middlewares: './src/middlewares/index.js'
+  },
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: '[name].esm.js',
+    libraryTarget: 'module',
+  },
+  experiments: {
+    outputModule: true,
+  },
+  
+}
+];

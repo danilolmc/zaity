@@ -2,22 +2,32 @@
   "name": "zaity",
   "version": "1.0.0",
   "description": "",
-  "main": "./dist/src/index.cjs",
-  "module": "./dist/src/index.mjs",
   "exports": {
-    ".": {
-      "import": "./dist/bundle.mjs",
-      "require": "./dist/bundle.cjs"
+    "./browser": {
+      "import": "./dist/browser.esm.js",
+      "require": "./dist/browser.cjs.js",
+      "types": "./dist/browser.d.ts"
+    },
+    "./node": {
+      "import": "./dist/node.esm.js",
+      "require": "./dist/node.cjs.js",
+      "types": "./dist/node.d.ts"
+    },
+    "./middlewares": {
+      "import": "./dist/middlewares.esm.js",
+      "require": "./dist/middlewares.cjs.js",
+      "types": "./dist/middlewares.d.ts"
     }
   },
-  "types": "./dist/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:dev": "webpack --config webpack.config.js --mode development",
     "build:prod": "webpack --config webpack.config.js --mode production",
     "commit": "git-cz",
     "prepare": "husky install",
-    "postinstall": "npx husky install"
+    "postinstall": "npx husky install",
+    "docs": "jsdoc -c jsdoc.config.json",
+    "types": "npx tsc"
   },
   "keywords": [],
   "author": "",
@@ -30,24 +40,26 @@
     "inquirer": "^9.2.8"
   },
   "peerDependencies": {
-    "@aws-sdk/client-transcribe": "^3.378.0"
+    "@aws-sdk/client-transcribe": "^3.378.0",
+    "socket.io-client": "^4.7.2"
   },
   "devDependencies": {
     "@aws-sdk/client-transcribe": "^3.382.0",
+    "@babel/core": "^7.22.10",
+    "@babel/preset-env": "^7.22.10",
     "@commitlint/cli": "^17.6.7",
     "@commitlint/config-conventional": "^17.6.7",
-    "@types/aws-sdk": "^2.7.0",
-    "@types/dom-speech-recognition": "^0.0.1",
-    "@types/execa": "^2.0.0",
-    "@types/figlet": "^1.5.6",
-    "@types/inquirer": "^9.0.3",
+    "babel-loader": "^9.1.3",
+    "clean-webpack-plugin": "^4.0.0",
     "commitizen": "^4.3.0",
     "cz-conventional-changelog": "^3.3.0",
+    "dts-bundle-webpack": "^1.0.2",
+    "dts-webpack-plugin": "^0.0.9",
     "husky": "^8.0.0",
-    "ts-loader": "^9.4.4",
-    "tsconfig-paths-webpack-plugin": "^4.1.0",
-    "typescript": "^5.1.6",
-    "webpack": "^5.88.2",
+    "jsdoc": "^4.0.2",
+    "npm-dts-webpack-plugin": "^1.3.12",
+    "socket.io-client": "^4.7.2",
+    "webpack": "~5.88.2",
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^4.15.1"
   },
