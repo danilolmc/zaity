@@ -1,21 +1,10 @@
-/**
- * Creates a debounce function that delays the execution of the given function.
- *
- * @param {Function} func - The function to be debounced.
- * @param {number} delay - The delay time in milliseconds.
- * @returns {Function} - The debounced function.
- */
-function debounce(func, delay) {
-  let timeout;
-  return function () {
-    const context = this;
-    const args = arguments;
-    clearTimeout(timeout);
-    timeout = setTimeout(() => {
-      func.apply(context, args);
-    }, delay);
-  };
-}
+import { DeniedMicPermission } from "../../error/deniedPermission";
+import { InvalidRecognitionCallbackType } from "../../error/invalidRecognitionCallbackType";
+import { checkSpeechRecognitionSupport } from "../../utils/IsSpeechRecognitionSupported";
+import { applyMiddlewares } from "../../utils/applyMiddlewares";
+import { CONSTANTS, CONSTANTS_MIC_PERMISSION, CONSTANTS_RECOGNITION } from "../../utils/constantsValues";
+import { debounce } from "../../utils/debounce";
+import { checkEnvironmentSupport } from "../../utils/isBrowserEnv";
 
 /**
  * Module for capturing voice and generating captions using the Speech Recognition API.
@@ -29,11 +18,17 @@ function debounce(func, delay) {
  * @param {boolean} [params.keepListening=true] - Specifies if recognition should keep listening after each end event.
  * @param {Function} [params.onEnd] - Callback function to be called when recognition ends.
  * @param {Function} [params.onStart] - Callback function to be called when recognition starts.
+ * @param {Function} [params.onError] - Callback function to be called when recognition throw an error.
  * @param {Array<Function>} [params.middlewares] - Array of middleware functions to apply to the transcript.
- * @returns {Object} - VoiceCaptions module.
+ * @throws {Error} - Throws an error if the browser or Speech Recognition API is not supported.
+ * @throws {InvalidRecognitionCallbackType} Throws an error if the callback operation type is invalid.
+ * @returns {{
+ *   listen: (callbackOperation: Function|HTMLElement) => void,
+ *   stopListening: () => void
+ * }}
  */
 export function VoiceCaptions(params) {
-  const recognition = new SpeechRecognition();
+  let recognitionInstance;
 
   const {
     continuous = true,
@@ -41,14 +36,33 @@ export function VoiceCaptions(params) {
     lang = 'pt-BR',
     DEBOUNCE_DELAY = 50,
     keepListening = true,
-    onEnd = () => {},
-    onStart = () => {},
+    onEnd = () => { },
+    onStart = () => { },
+    onError = _ => { },
     middlewares = []
   } = params;
 
-  recognition.continuous = continuous;
-  recognition.interimResults = interimResults;
-  recognition.lang = lang;
+  /**
+   * Creates a new instance of SpeechRecognition with the specified configuration.
+   */
+  function createInstance() {
+    recognitionInstance = new SpeechRecognition();
+    recognitionInstance.continuous = continuous;
+    recognitionInstance.interimResults = interimResults;
+    recognitionInstance.lang = lang;
+  }
+
+  /**
+   * Checks the callback operation type.
+   *
+   * @param {Function|HTMLElement} callbackOperation - The callback operation to be checked.
+   * @throws {InvalidRecognitionCallbackType} Throws an error if the callback operation type is invalid.
+   */
+  function checkCallbackOperationType(callbackOperation) {
+    if (!(callbackOperation instanceof Function) && !(callbackOperation instanceof HTMLElement)) {
+      throw new InvalidRecognitionCallbackType(CONSTANTS_RECOGNITION.RECOGNITION_INVALID_CALLBACK_TYPE_ERROR_MESSAGE('Function or HTMLElement'));
+    }
+  }
 
   /**
    * Initiates voice recognition and captures speech input.
@@ -58,55 +72,47 @@ export function VoiceCaptions(params) {
    * @returns {void}
    */
   function listen(callbackOperation) {
-    if (typeof window === 'undefined') {
-      throw new Error('This module is only supported on browsers.');
-    }
+    checkEnvironmentSupport();
+    checkSpeechRecognitionSupport();
+    createInstance();
 
-    if (!('SpeechRecognition' in window) && !('webkitSpeechRecognition' in window)) {
-      throw new Error('Speech Recognition API not supported in this browser.');
-    }
-
-    function applyMiddlewares(transcript, middlewaresList) {
-      if (middlewaresList.length > 0) {
-        const pipe = (...functions) => initialValue => {
-          return functions.reduce((result, middleware) => {
-            if (middleware instanceof Function) {
-              return middleware(result);
-            } else {
-              throw new Error(`Invalid middleware at index ${index}, it must be a function`);
-            }
-          }, initialValue);
-        };
-
-        return pipe(...middlewaresList)(transcript);
-      } else {
-        return transcript;
-      }
-    }
-
-    recognition.onresult = event => {
+    recognitionInstance.onresult = event => {
       const result = applyMiddlewares(event.results[event.results.length - 1][0].transcript, middlewares);
 
+      checkCallbackOperationType();
+
       if (callbackOperation instanceof Function) {
-        debounce(() => callbackOperation(result), DEBOUNCE_DELAY);
+        const debouncedFunction = debounce(callbackOperation, DEBOUNCE_DELAY);
+        debouncedFunction(result);
+        return;
       }
 
       if (callbackOperation instanceof HTMLElement) {
         const element = callbackOperation;
-        debounce(() => element.textContent = result, DEBOUNCE_DELAY);
+        const debouncedFunction = debounce(() => element.textContent = result, DEBOUNCE_DELAY);
+        debouncedFunction();
+        return;
       }
     };
 
-    recognition.onstart = () => {
+    recognitionInstance.onstart = () => {
       onStart();
     };
 
-    recognition.onend = () => {
-      if (keepListening) recognition.start();
+    recognitionInstance.onerror = event => {
+      if (event.error === CONSTANTS_MIC_PERMISSION.DENIED_PERMISSION_ERROR) {
+        onError(new DeniedMicPermission(CONSTANTS_MIC_PERMISSION.DENIED_PERMISSION_MESSAGE));
+        return;
+      }
+      onError(event.error)
+    };
+
+    recognitionInstance.onend = () => {
+      if (keepListening) recognitionInstance.start();
       onEnd();
     };
 
-    recognition.start();
+    recognitionInstance.start();
   }
 
   /**
@@ -116,18 +122,10 @@ export function VoiceCaptions(params) {
    */
   function stopListening() {
     keepListening = false;
-    recognition.stop();
+    recognitionInstance.stop();
   }
 
-  // Return an object with methods
   return {
-    /**
-     * Starts listening for speech and captures voice input.
-     *
-     * @param {Function|HTMLElement} callbackOperation - Callback function or HTMLElement.
-     * @throws {Error} - Throws an error if the browser or Speech Recognition API is not supported.
-     * @returns {void}
-     */
     listen,
     stopListening
   };
