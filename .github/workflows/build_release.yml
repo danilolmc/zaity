@@ -3,7 +3,8 @@ name: Build & Release
 on:
   push:
     branches:
-      - [main, beta]
+      - main
+      - beta
 jobs:
   build:
     name: Build
