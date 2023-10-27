@@ -41,7 +41,7 @@ export const CONSTANTS_VOICE_COMMAND = Object.freeze({
     /**
      * Tipo do erro quando o tipo callback do comando de voz é invalido 
      */
-    COMMAND_VOICE_INVALID_CALLBACK_TYPE_ERROR: callbackTypeName => 'invalid-voice-command-callback-type',
+    COMMAND_VOICE_INVALID_CALLBACK_TYPE_ERROR: 'invalid-voice-command-callback-type',
     /**
      * Mensagem do erro quando o tipo callback do comando de voz é invalido
      */
@@ -49,7 +49,7 @@ export const CONSTANTS_VOICE_COMMAND = Object.freeze({
     /**
      * Nome do erro quando o tipo callback do comando de voz é invalido
      */
-    COMMAND_VOICE_INVALID_CALLBACK_TYPE_ERROR_NAME: callbackTypeName => 'Voice command callback type is invalid'
+    COMMAND_VOICE_INVALID_CALLBACK_TYPE_ERROR_NAME: 'Voice command callback type is invalid'
     
   });
   
@@ -72,5 +72,25 @@ export const CONSTANTS_RECOGNITION = Object.freeze({
      * Nome do erro quando a permissão ao microfone do usuário é negada.
      */
     RECOGNITION_INVALID_CALLBACK_TYPE_ERROR_NAME: 'Invalid callback type',
+  });
+  
+  /**
+ * Constantes de erros de sintetização de voz
+ * @readonly
+ * @enum {string}
+ */
+export const CONSTANTS_SYNTHESIS = Object.freeze({
+    /**
+     * Tipo do erro quando o código do idioma é invalido.
+     */
+    SYNTHESIS_INVALID_LANG_TYPE_ERROR: 'invalid-lang-code',
+    /**
+     * Mensagem do erro quando o código do idioma é invalido.
+     */
+    SYNTHESIS_INVALID_LANG_TYPE_ERROR_MESSAGE: lang => `Invalid lang code: ${lang}`,
+    /**
+     * Nome do erro quando o código do idioma é invalido.
+     */
+    SYNTHESIS_INVALID_LANG_TYPE_ERROR_NAME: 'Invalid language code',
   });
   

@@ -1,14 +1,14 @@
  /**
- * Applies a list of middleware functions to the input transcript.
+ * Applies a list of middleware functions to the input text.
  *
- * @param {string} transcript - The input transcript to be processed by the middlewares.
+ * @param {string} text - The input text to be processed by the middlewares.
  * @param {Function[]} middlewaresList - An array of middleware functions to be applied in order.
  *
  * @throws {Error} If any of the middlewares is not a function.
  *
- * @returns {string} The processed transcript after applying all the middlewares.
+ * @returns {string} The processed text after applying all the middlewares.
  */
-export function applyMiddlewares(transcript, middlewaresList) {
+export function applyMiddlewares(text, middlewaresList) {
     /**
      * A higher-order function that applies a list of functions in sequence to an initial value.
      *
@@ -26,9 +26,9 @@ export function applyMiddlewares(transcript, middlewaresList) {
     };
   
     if (middlewaresList.length > 0) {
-      return pipe(...middlewaresList)(transcript);
+      return pipe(...middlewaresList)(text);
     } else {
-      return transcript;
+      return text;
     }
   }
   

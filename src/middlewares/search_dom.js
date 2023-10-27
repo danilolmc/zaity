@@ -9,7 +9,7 @@ export function SearchDOM() {
      * @param {Element} targetElement - The target element to search within.
      * @returns {Element|null} - The first matching element, or null if not found.
      */
-    function searchFirst(query, targetElement = document) {
+    function searchFirst(query, targetElement) {
       return targetElement.querySelector(query);
     }
   
@@ -19,7 +19,7 @@ export function SearchDOM() {
      * @param {Element} targetNode - The target element to search within.
      * @returns {NodeListOf<Element>} - A list of matching elements.
      */
-    function searchAll(query, targetNode = document) {
+    function searchAll(query, targetNode) {
       return targetNode.querySelectorAll(query);
     }
   

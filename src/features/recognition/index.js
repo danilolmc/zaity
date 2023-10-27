@@ -1,10 +1,9 @@
 import { DeniedMicPermission } from "../../error/deniedPermission";
 import { InvalidRecognitionCallbackType } from "../../error/invalidRecognitionCallbackType";
-import { checkSpeechRecognitionSupport } from "../../utils/IsSpeechRecognitionSupported";
 import { applyMiddlewares } from "../../utils/applyMiddlewares";
-import { CONSTANTS, CONSTANTS_MIC_PERMISSION, CONSTANTS_RECOGNITION } from "../../utils/constantsValues";
+import { buildSpeechRecognition } from "../../utils/builders/speechRecognitionBuilder";
+import { CONSTANTS_MIC_PERMISSION, CONSTANTS_RECOGNITION } from "../../utils/constantsValues";
 import { debounce } from "../../utils/debounce";
-import { checkEnvironmentSupport } from "../../utils/isBrowserEnv";
 
 /**
  * Module for capturing voice and generating captions using the Speech Recognition API.
@@ -30,7 +29,7 @@ import { checkEnvironmentSupport } from "../../utils/isBrowserEnv";
 export function VoiceCaptions(params) {
   let recognitionInstance;
 
-  const {
+  let {
     continuous = true,
     interimResults = false,
     lang = 'pt-BR',
@@ -46,7 +45,7 @@ export function VoiceCaptions(params) {
    * Creates a new instance of SpeechRecognition with the specified configuration.
    */
   function createInstance() {
-    recognitionInstance = new SpeechRecognition();
+    recognitionInstance = buildSpeechRecognition();
     recognitionInstance.continuous = continuous;
     recognitionInstance.interimResults = interimResults;
     recognitionInstance.lang = lang;
@@ -72,14 +71,12 @@ export function VoiceCaptions(params) {
    * @returns {void}
    */
   function listen(callbackOperation) {
-    checkEnvironmentSupport();
-    checkSpeechRecognitionSupport();
     createInstance();
 
     recognitionInstance.onresult = event => {
       const result = applyMiddlewares(event.results[event.results.length - 1][0].transcript, middlewares);
 
-      checkCallbackOperationType();
+      checkCallbackOperationType(callbackOperation);
 
       if (callbackOperation instanceof Function) {
         const debouncedFunction = debounce(callbackOperation, DEBOUNCE_DELAY);

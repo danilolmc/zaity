@@ -1,4 +1,4 @@
-import { StartTranscriptionJobCommand, StartTranscriptionJobCommandInput, TranscribeClient } from "@aws-sdk/client-transcribe";
+import { StartTranscriptionJobCommand, TranscribeClient } from "@aws-sdk/client-transcribe";
 
 /**
  * Creates a transcriber for transcription services.
@@ -21,7 +21,7 @@ export function Transcriber(credentials) {
   /**
   * Sets the parameters of the transcription job.
   *
-  * @param {StartTranscriptionJobCommandInput} params - The parameters of the transcription job.
+  * @param {import("@aws-sdk/client-transcribe").StartTranscriptionJobCommandInput} params - The parameters of the transcription job.
   * @returns {void}
   */
   function setJobParams(params) {
