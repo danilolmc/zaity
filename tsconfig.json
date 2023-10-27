@@ -1,0 +1,11 @@
+{
+    "include": ["src/**/*.js"],
+    "compilerOptions": {
+      "allowJs": true,
+      "checkJs": true,
+      "declaration": true,
+      "emitDeclarationOnly": true,
+      "outDir": "dist/types",
+    },
+    "exclude": ["node_modules", "bin"]
+  }
