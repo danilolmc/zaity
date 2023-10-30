@@ -1,6 +1,5 @@
 const path = require('path');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = [
   {
@@ -10,10 +9,10 @@ module.exports = [
       middlewares: './src/middlewares/index.js',
     },
     output: {
-      path: path.resolve(__dirname, 'dist/cjs'),
+      path: path.resolve(__dirname, 'lib/cjs'),
       filename: '[name].cjs.js',
       library: 'zaity',
-      libraryTarget: 'commonjs2',
+      libraryTarget: 'commonjs',
     },
     module: {
       rules: [
@@ -45,15 +44,16 @@ module.exports = [
       middlewares: './src/middlewares/index.js',
     },
     output: {
-      path: path.resolve(__dirname, 'dist/esm'),
+      path: path.resolve(__dirname, 'lib/esm'),
       filename: '[name].esm.js',
       libraryTarget: 'module',
     },
     experiments: {
       outputModule: true,
     },
-    resolve: {
-      extensions: ['.js'],
+    externals: {
+      '@aws-sdk/client-transcribe': '@aws-sdk/client-transcribe',
+      'socket.io-client': 'socket.io-client',
     },
   }
 ];
