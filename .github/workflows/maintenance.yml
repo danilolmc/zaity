@@ -11,7 +11,8 @@ on:
       - ci/**
   pull_request:
     branches:
-      - master
+      - main
+      - develop
 
 jobs:
   build:
