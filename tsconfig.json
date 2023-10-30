@@ -1,11 +1,17 @@
 {
-    "include": ["src/**/*.js"],
-    "compilerOptions": {
-      "allowJs": true,
-      "checkJs": true,
-      "declaration": true,
-      "emitDeclarationOnly": true,
-      "outDir": "dist/types",
-    },
-    "exclude": ["node_modules", "bin"]
-  }
+  "include": [
+    "src/features/**/*.js",
+    "src/middlewares/**/*.js"
+  ],
+  "compilerOptions": {
+    "allowJs": true,
+    "checkJs": true,
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "outDir": "lib/types",
+  },
+  "exclude": [
+    "node_modules",
+    "bin"
+  ]
+}

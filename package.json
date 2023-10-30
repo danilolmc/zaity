@@ -19,8 +19,14 @@
       "types": "./dist/types/middlewares/index.d.ts"
     }
   },
+  "files": [
+    "/lib",
+    "README.md",
+    "LICENSE",
+    "logolibrary.scg"
+  ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npm run build:prod",
     "build:dev": "webpack --config webpack.config.js --mode development",
     "build:prod": "webpack --config webpack.config.js --mode production && npm run types",
     "commit": "git-cz",
