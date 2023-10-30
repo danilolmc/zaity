@@ -20,7 +20,7 @@
     }
   },
   "files": [
-    "lib/",
+    "./lib/",
     "README.md",
     "LICENSE",
     "logolibrary.svg"
