@@ -1,33 +1,33 @@
 {
   "name": "zaity",
   "version": "1.0.0-beta.1",
-  "description": "",
+  "description": "Your voice accessibility library for web",
   "exports": {
     ".": {
-      "import": "./src/esm/browser.esm.js",
-      "require": "./dist/cjs/browser.cjs.js",
-      "types": "./dist/types/browser/index.d.ts"
+      "import": "./lib/esm/browser.esm.js",
+      "require": "./lib/cjs/browser.cjs.js",
+      "types": "./lib/types/browser/index.d.ts"
     },
     "./node": {
-      "import": "./dist/esm/node.esm.js",
-      "require": "./dist/cjs/node.cjs.js",
-      "types": "./dist/types/node/index.d.ts"
+      "import": "./lib/esm/node.esm.js",
+      "require": "./lib/cjs/node.cjs.js",
+      "types": "./lib/types/node/index.d.ts"
     },
     "./middlewares": {
-      "import": "./dist/esm/middlewares.esm.js",
-      "require": "./dist/cjs/middlewares.cjs.js",
-      "types": "./dist/types/middlewares/index.d.ts"
+      "import": "./lib/esm/middlewares.esm.js",
+      "require": "./lib/cjs/middlewares.cjs.js",
+      "types": "./lib/types/middlewares/index.d.ts"
     }
   },
   "files": [
     "/lib",
     "README.md",
     "LICENSE",
-    "logolibrary.scg"
+    "logolibrary.svg"
   ],
   "scripts": {
     "build": "npm run build:prod",
-    "build:dev": "webpack --config webpack.config.js --mode development",
+    "build:dev": "webpack --config webpack.config.js --mode development && npm run types",
     "build:prod": "webpack --config webpack.config.js --mode production && npm run types",
     "commit": "git-cz",
     "prepare": "husky install",
@@ -37,16 +37,13 @@
     "ci": "npm pkg delete scripts.prepare & npm ci --omit=dev",
     "semantic-release": "semantic-release"
   },
-  "keywords": [],
+  "keywords": [
+    "accessibility",
+    "pln",
+    "voice"
+  ],
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "chalk": "^4.1.2",
-    "detect-node": "^2.1.0",
-    "execa": "^7.1.1",
-    "figlet": "^1.6.0",
-    "inquirer": "^9.2.8"
-  },
   "peerDependencies": {
     "@aws-sdk/client-transcribe": "^3.378.0",
     "socket.io-client": "^4.7.2"
