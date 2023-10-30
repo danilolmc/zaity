@@ -25,6 +25,9 @@
     "LICENSE",
     "logolibrary.svg"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "npm run build:prod",
     "build:dev": "webpack --config webpack.config.js --mode development && npm run types",
