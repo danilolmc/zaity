@@ -23,7 +23,7 @@
             "@semantic-release/github",
             {
                 "assets": [
-                    "lib/**/*",
+                    "lib",
                     "CHANGELOG.md"
                 ]
             }
