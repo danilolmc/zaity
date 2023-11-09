@@ -18,13 +18,24 @@
                 "changelogFile": "CHANGELOG.md"
             }
         ],
-        "@semantic-release/npm",
+        [
+            "@semantic-release/npm",
+            {
+                "npmPublish": false
+            }
+        ],
         [
             "@semantic-release/github",
             {
                 "assets": [
-                    "zaity.zip",
-                    "CHANGELOG.md"
+                    {
+                        "path": "temp/zaity.zip",
+                        "label": "JS Diatribution"
+                    },
+                    {
+                        "path": "CHANGELOG.md",
+                        "label": "CHANGELOG.md"
+                    }
                 ]
             }
         ]
