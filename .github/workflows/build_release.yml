@@ -29,7 +29,14 @@ jobs:
         run: mkdir temp && zip -r temp/zaity.zip lib package.json LICENSE
 
       - name: Release
+        id: release_step
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: npx semantic-release
+
+      - name: Prepare release assets
+        id: assets_preparation
+        if: steps.release_step.outcome == 'success'
+        run: |
+          zip -r zaity.zip lib README.md package.json LICENSE logolibrary.svg

@@ -23,7 +23,7 @@
             "@semantic-release/github",
             {
                 "assets": [
-                    "lib",
+                    "zaity.zip",
                     "CHANGELOG.md"
                 ]
             }

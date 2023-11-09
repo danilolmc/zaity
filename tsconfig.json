@@ -1,7 +1,6 @@
 {
   "include": [
-    "src/features/**/*.js",
-    "src/middlewares/**/*.js"
+    "src/index.js"
   ],
   "compilerOptions": {
     "allowJs": true,

@@ -2,8 +2,11 @@ import { StartTranscriptionJobCommand, TranscribeClient } from "@aws-sdk/client-
 
 /**
  * Creates a transcriber for transcription services.
- * @param {object} credentials - The authentication credentials for the transcription service.
- * @returns {object} - An object containing methods for configuration and transcription.
+ * @param {import("@aws-sdk/client-transcribe").TranscribeClientConfig} credentials - The authentication credentials for the transcription service.
+ * @returns {{
+ *   setJobParams: (params: import("@aws-sdk/client-transcribe").StartTranscriptionJobCommandInput) => void,
+ *   transcribe(success: Function, error: Function): void
+ * }}
  */
 export function Transcriber(credentials) {
   let transribeClient;
@@ -50,12 +53,10 @@ export function Transcriber(credentials) {
       });
   }
 
-  // Configure the transcriber if credentials are provided
   if (credentials) {
     config(credentials);
   }
 
-  // Return an object with configured methods
   return {
     setJobParams,
     transcribe
