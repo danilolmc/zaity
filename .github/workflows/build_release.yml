@@ -25,15 +25,11 @@ jobs:
       - name: Build
         run: npm run build --if-present
 
+      - name: Create Zip
+        run: mkdir temp && zip -r temp/zaity.zip lib
+
       - name: Release
-        id: release_gen_step
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: npx semantic-release
-
-      - name: Prepare release assets
-        id: assets_preparation
-        if: steps.release_gen_step.outcome == 'success'
-        run: |
-          zip -r zaity.zip lib README.md package.json LICENSE logolibrary.svg
