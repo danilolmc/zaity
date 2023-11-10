@@ -1,6 +1,6 @@
 {
-  "name": "zaity",
-  "version": "1.0.0-beta.1",
+  "name": "zaity-kit",
+  "version": "1.0.0",
   "description": "Your voice accessibility library for web",
   "main": "./lib/cjs/browser.cjs.js",
   "module": "./lib/esm/browser.esm.js",
