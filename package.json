@@ -1,6 +1,6 @@
 {
-  "name": "zaity",
-  "version": "1.0.0-beta.1",
+  "name": "@zaity/web",
+  "version": "1.0.0",
   "description": "Your voice accessibility library for web",
   "exports": {
     ".": {
