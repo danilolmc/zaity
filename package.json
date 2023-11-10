@@ -1,5 +1,5 @@
 {
-  "name": "@zaity/web",
+  "name": "zaity-kit",
   "version": "1.0.0",
   "description": "Your voice accessibility library for web",
   "main": "./lib/cjs/browser.cjs.js",
