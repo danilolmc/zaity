@@ -86,10 +86,10 @@ export function VoiceCommand(commandParams) {
      * @param {Function} [options.onStart=() => {}] - A callback function to be executed when listening starts.
      * @returns {void}
      */
-    function listenVoiceCommand({
-        onEnd = () => { },
-        onStart = () => { }
-    }) {
+    function listenVoiceCommand(
+        onStart = () => { },
+        onEnd = () => { }
+    ) {
         createInstance();
 
         recognitionInstance.onresult = event => {

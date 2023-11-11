@@ -1,7 +1,9 @@
 {
-  "name": "@zaity/web",
+  "name": "zaity-kit",
   "version": "1.0.0",
   "description": "Your voice accessibility library for web",
+  "main": "./lib/cjs/browser.cjs.js",
+  "module": "./lib/esm/browser.esm.js",
   "exports": {
     ".": {
       "import": "./lib/esm/browser.esm.js",
@@ -19,12 +21,16 @@
       "types": "./lib/types/middlewares/index.d.ts"
     }
   },
+  "types": "./lib/types/index.d.ts",
   "files": [
-    "lib/**/*",
+    "lib",
     "README.md",
     "LICENSE",
     "logolibrary.svg"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "npm run build:prod",
     "build:dev": "webpack --config webpack.config.js --mode development && npm run types",
@@ -33,7 +39,7 @@
     "prepare": "husky install",
     "postinstall": "npx husky install",
     "docs": "jsdoc -c jsdoc.config.json",
-    "types": "tsc --allowJs -d --emitDeclarationOnly",
+    "types": "tsc",
     "ci": "npm pkg delete scripts.prepare & npm ci --omit=dev",
     "semantic-release": "semantic-release"
   },
