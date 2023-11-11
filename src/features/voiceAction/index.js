@@ -13,15 +13,16 @@ import { debounce } from "../../utils/debounce";
  * @param {Object} commandParams - Configuration parameters for VoiceCommand.
  * @param {boolean} [commandParams.continuous=true] - Specifies if the listening should be continuous.
  * @param {string} [commandParams.lang='pt-BR'] - Specifies the language for recognize the command.
- * @param {Function} [commandParams.onError] - Callback function to be called when command recognition throw an error.
- * @param {Map<string, Function>} [commandParams.commandsMapping] - Map of the respective commands and callback functions.
- * @param {Array<Function>} [commandParams.middlewares] - Array of middleware functions to apply to the recognized command before invoke respective callback function.
+ * @param {function} [commandParams.onError] - Callback function to be called when command recognition throw an error.
+ * @param {Map<string, function>} [commandParams.commandsMapping] - Map of the respective commands and callback functions.
+ * @param {Array<function>} [commandParams.middlewares] - Array of middleware functions to apply to the recognized command before invoke respective callback function.
  * @param {number} [commandParams.DEBOUNCE_DELAY=50] - The delay (in milliseconds) to debounce voice commands.
  * @param {boolean} [commandParams.keepListening=true] - Whether to keep listening for voice commands after each execution.
  * @throws {VoiceCommandNotFound} - Throws an error in case respective voice command it's not founded.
  * @throws {InvalidVoiceCommandCallbackType} Throws an error if the command callback type is invalid.
  * @throws {Error} - Throws an error if the browser does not support the Speech Recognition API.
- * @returns {{ listenVoiceCommand: Function, stopListening: Function }}
+ * @returns {{ 
+ * listenVoiceCommand: (onStart: function, onEnd: function) => void, stopListening: function }}
  */
 export function VoiceCommand(commandParams) {
 
@@ -81,9 +82,8 @@ export function VoiceCommand(commandParams) {
      *
      * @throws {Error} - Throws an error if the browser does not support the Speech Recognition API.
      * @throws {InvalidVoiceCommandCallbackType} Throws an error if the command callback type is invalid.
-     * @param {Object} options - Configuration options for voice recognition.
-     * @param {Function} [options.onEnd=() => {}] - A callback function to be executed when listening ends.
-     * @param {Function} [options.onStart=() => {}] - A callback function to be executed when listening starts.
+     * @param {Function} [onStart=() => {}] - A callback function to be executed when listening starts.
+     * @param {Function} [onEnd=() => {}] - A callback function to be executed when listening ends.
      * @returns {void}
      */
     function listenVoiceCommand(
