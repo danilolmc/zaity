@@ -8,7 +8,7 @@ import { StartTranscriptionJobCommand, TranscribeClient } from "@aws-sdk/client-
  *   transcribe(success: Function, error: Function): void
  * }}
  */
-export function Transcriber(credentials) {
+export function VoiceBatchTranscriber(credentials) {
   let transribeClient;
   let jobParams;
 
@@ -63,4 +63,4 @@ export function Transcriber(credentials) {
   };
 }
 
-export default Transcriber;
+export default VoiceBatchTranscriber;
