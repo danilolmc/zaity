@@ -62,5 +62,3 @@ export function VoiceBatchTranscriber(credentials) {
     transcribe
   };
 }
-
-export default VoiceBatchTranscriber;
