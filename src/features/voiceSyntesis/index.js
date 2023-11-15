@@ -12,6 +12,7 @@ import { CONSTANTS_SYNTHESIS } from "../../utils/constantsValues";
  * @param {Function} [syntesisParams.onError] - Callback function to be called when command recognition throw an error.
  * @param {Array<Function>} [syntesisParams.middlewares] - Array of middleware functions to apply over the content wich will be syntetized a voice.
  * @throws {Error} - Throws an error if the browser does not support the Speech Synthesis interface.
+ * @throws {InvalidLangCode} Throws an error when a voice for the specified language is not valid.
  * @returns {{
  *   speak: (text: string) => void,
  *   pauseSpeaking: () => void,

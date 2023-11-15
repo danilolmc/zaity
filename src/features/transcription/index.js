@@ -5,10 +5,10 @@ import { StartTranscriptionJobCommand, TranscribeClient } from "@aws-sdk/client-
  * @param {import("@aws-sdk/client-transcribe").TranscribeClientConfig} credentials - The authentication credentials for the transcription service.
  * @returns {{
  *   setJobParams: (params: import("@aws-sdk/client-transcribe").StartTranscriptionJobCommandInput) => void,
- *   transcribe(success: Function, error: Function): void
+ *   transcribe(success: function, error: function): void
  * }}
  */
-export function Transcriber(credentials) {
+export function VoiceBatchTranscriber(credentials) {
   let transribeClient;
   let jobParams;
 
@@ -63,4 +63,4 @@ export function Transcriber(credentials) {
   };
 }
 
-export default Transcriber;
+export default VoiceBatchTranscriber;
