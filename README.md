@@ -31,21 +31,14 @@ npm install zaity-kit
 This module provides functionality to recognize and transcribe voice in realtime in the browser
 
 ```javascript
-import { VoiceSynthesizer } from "zaity-kit/browser";
-
-const voiceSynthesizer = VoiceSynthesizer({
+const recognition = VoiceRecognition({
   lang: "en-US",
-  onError: (error) => {
-    console.error("Voice synthesis error:", error);
-  },
-  middlewares: [
-    (text) => {
-      // Apply custom middleware right before synthesis result for customize it
-      return text.replace("Hi", "Hello");
-    },
-  ],
+  onEnd: () => console.log("Recognition ended."),
+  onError: (error) => console.error("Recognition error:", error),
+  middlewares: [(innerResult) => innerResult.replace("Hello", "Hi")],
 });
-voiceSynthesizer.speak("Hi, world!");
+
+recognition.listen((result) => console.log(result));
 ```
 
 #### Voice Command
@@ -68,7 +61,7 @@ const voiceCommand = VoiceCommand({
   middlewares: [
     (command) => {
       // Apply custom middleware before calling bonded command
-      return command.toLowerCase();
+      return command.trim();
     },
   ],
   DEBOUNCE_DELAY: 50,
@@ -95,13 +88,12 @@ const voiceSynthesizer = VoiceSynthesizer({
   },
   middlewares: [
     (text) => {
-      // Apply a custom middleware right before synthesis result is returned
-      return text.toUpperCase();
+      // Apply custom middleware right before synthesis result for customize it
+      return text.replace("Hi", "Hello");
     },
   ],
 });
-
-voiceSynthesizer.speak("Hello, world!");
+voiceSynthesizer.speak("Hi, world!");
 ```
 
 #### Voice Transcriber
@@ -109,6 +101,8 @@ voiceSynthesizer.speak("Hello, world!");
 This module provides the funcionality to transcribe audio/video files, powered by AWS, in a nodeJS environment.
 
 ```javascript
+import { VoiceBatchTranscriber } from "zaity-kit/node";
+
 const transcriber = VoiceBatchTranscriber({
   // Provide your AWS credentials here
 });
