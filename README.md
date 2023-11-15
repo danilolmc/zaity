@@ -4,7 +4,7 @@
     </p>
     <br/>
     <div align="center">
-        <a href="https://github.com/danilolmc/zaity/blob/99d14ca79797785163eb73267f7cd7d23a260ee3/CONTRIBUTING.md">Contributing Guidelines</a>
+        <a href="./CONTRIBUTING.md">Contributing Guidelines</a>
         <a href="https://github.com/danilolmc/zaity/issues">Submit an issue</a>
     </div>
 <header>
@@ -256,7 +256,7 @@ transcriber.transcribe(
   }),
   ```
 
-- **transcribe()**: Starts the transcribe job.
+- **transcribe(success: Function, error: Function)**: Starts the transcribe job.
 
   ```javascript
   voiceSynthesizer.transcribe(
