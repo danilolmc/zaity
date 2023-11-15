@@ -8,8 +8,8 @@ import { debounce } from "../../utils/debounce";
 /**
  * Module for capturing voice and generating captions using the Speech Recognition API.
  *
- * @module VoiceCaptions
- * @param {Object} params - Configuration parameters for VoiceCaptions.
+ * @module VoiceRecognition
+ * @param {Object} params - Configuration parameters for VoiceRecognition.
  * @param {boolean} [params.continuous=true] - Specifies if the recognition should be continuous.
  * @param {boolean} [params.interimResults=false] - Specifies if interim results should be provided.
  * @param {string} [params.lang='pt-BR'] - Specifies the language for recognition.
@@ -26,7 +26,7 @@ import { debounce } from "../../utils/debounce";
  *   stopListening: () => void
  * }}
  */
-export function VoiceCaptions(params) {
+export function VoiceRecognition(params) {
   let recognitionInstance;
 
   let {
