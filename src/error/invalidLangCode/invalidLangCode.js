@@ -1,4 +1,4 @@
-import { CONSTANTS_SYNTHESIS } from "../utils/constantsValues";
+import { CONSTANTS_SYNTHESIS } from "../../utils/constantsValues";
 /**
  * Custom error class for invalid language codes in speech synthesis.
  * @extends Error
@@ -10,7 +10,8 @@ export class InvalidLangCode extends Error {
      * @param {string} message - A custom error message.
      */
     constructor(message) {
-        super(message);
+        const defaultMessage = 'Invalid language';
+        super(message || defaultMessage);
         /**
          * The name of the error (CONSTANTS_SYNTHESIS.SYNTHESIS_INVALID_LANG_TYPE_ERROR_NAME).
          * @type {string}

@@ -19,7 +19,7 @@ module.exports = [
         {
           test: /\.js$/,
           use: 'babel-loader',
-          exclude: /node_modules/,
+          exclude: /(node_modules|\.test\.js$)/
         },
       ],
     },
@@ -42,6 +42,15 @@ module.exports = [
       browser: './src/browser/index.js',
       node: './src/node/index.js',
       middlewares: './src/middlewares/index.js',
+    },
+    module: {
+      rules: [
+        {
+          test: /\.js$/,
+          use: 'babel-loader',
+          exclude: /(node_modules|\.test\.js$)/
+        },
+      ],
     },
     output: {
       path: path.resolve(__dirname, 'lib/esm'),

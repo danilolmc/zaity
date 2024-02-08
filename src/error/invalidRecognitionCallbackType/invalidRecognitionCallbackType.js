@@ -1,4 +1,4 @@
-import { CONSTANTS_RECOGNITION } from "../utils/constantsValues";
+import { CONSTANTS_RECOGNITION } from "../../utils/constantsValues";
 
 /**
  * Custom error class for invalid recognition callback type.
@@ -11,7 +11,8 @@ export class InvalidRecognitionCallbackType extends Error {
      * @param {string} message - A custom error message.
      */
     constructor(message) {
-        super(message);
+        const defaultMessage = 'Invalid recognition callback type';
+        super(message || defaultMessage);
         /**
          * The name of the error (CONSTANTS_RECOGNITION.RECOGNITION_INVALID_CALLBACK_TYPE_ERROR_NAME).
          * @type {string}

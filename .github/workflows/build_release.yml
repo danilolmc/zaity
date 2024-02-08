@@ -5,6 +5,9 @@ on:
     branches:
       - main
       - beta
+  pull_request:
+    branches:
+      - main
 jobs:
   release:
     name: Release
@@ -23,8 +26,11 @@ jobs:
         run: npm ci --ignore-scripts
 
       - name: Build
-        run: npm run build --if-present
-
+        run: npm run build
+        
+      - name: Test
+        run: npm run test
+        
       - name: Create Zip
         run: mkdir temp && zip -r temp/zaity.zip lib package.json LICENSE
 

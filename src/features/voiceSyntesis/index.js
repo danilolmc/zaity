@@ -1,4 +1,4 @@
-import { InvalidLangCode } from "../../error/invalidLangCode";
+import { InvalidLangCode } from "../../error/invalidLangCode/invalidLangCode";
 import { applyMiddlewares } from "../../utils/applyMiddlewares";
 import { buildSpeechSynthesis } from "../../utils/builders/speechSynthesisBuilder";
 import { CONSTANTS_SYNTHESIS } from "../../utils/constantsValues";
