@@ -1,4 +1,4 @@
-import { CONSTANTS_MIC_PERMISSION } from "../utils/constantsValues";
+import { CONSTANTS_MIC_PERMISSION } from "../../utils/constantsValues";
 
 /**
  * Custom error class for denied microphone permission.
@@ -11,7 +11,8 @@ export class DeniedMicPermission extends Error {
      * @param {string} message - A custom error message.
      */
     constructor(message) {
-        super(message);
+        const defaultMessage = 'Microphone permission not granted';
+        super(message || defaultMessage);
         /**
          * The name of the error (CONSTANTS_MIC_PERMISSION.DENIED_MIC_PERMISSION_ERROR_NAME).
          * @type {string}

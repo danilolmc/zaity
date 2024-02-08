@@ -11,7 +11,6 @@ on:
       - ci/**
   pull_request:
     branches:
-      - main
       - develop
 
 jobs:
@@ -31,4 +30,7 @@ jobs:
         run: npm ci --ignore-scripts
 
       - name: Build
-        run: npm run build --if-present
+        run: npm run build
+
+      - name: Test
+        run: npm run test

@@ -1,6 +1,6 @@
-import { VoiceCommandNotFound } from "../../error/commandNotFound";
-import { DeniedMicPermission } from "../../error/deniedPermission";
-import { InvalidVoiceCommandCallbackType } from "../../error/invalidVoiceCommandCallbackType";
+import { VoiceCommandNotFound } from "../../error/commandNotFound/commandNotFound";
+import { DeniedMicPermission } from "../../error/deniedPermission/deniedPermission";
+import { InvalidVoiceCommandCallbackType } from "../../error/invalidVoiceCommandCallbackType/invalidVoiceCommandCallbackType";
 import { applyMiddlewares } from "../../utils/applyMiddlewares";
 import { buildSpeechRecognition } from "../../utils/builders/speechRecognitionBuilder";
 import { CONSTANTS_MIC_PERMISSION, CONSTANTS_VOICE_COMMAND } from "../../utils/constantsValues";

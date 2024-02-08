@@ -1,5 +1,5 @@
-import { DeniedMicPermission } from "../../error/deniedPermission";
-import { InvalidRecognitionCallbackType } from "../../error/invalidRecognitionCallbackType";
+import { DeniedMicPermission } from "../../error/deniedPermission/deniedPermission";
+import { InvalidRecognitionCallbackType } from "../../error/invalidRecognitionCallbackType/invalidRecognitionCallbackType";
 import { applyMiddlewares } from "../../utils/applyMiddlewares";
 import { buildSpeechRecognition } from "../../utils/builders/speechRecognitionBuilder";
 import { CONSTANTS_MIC_PERMISSION, CONSTANTS_RECOGNITION } from "../../utils/constantsValues";

@@ -4,10 +4,10 @@
   ],
   "compilerOptions": {
     "allowJs": true,
-    "checkJs": true,
     "declaration": true,
     "emitDeclarationOnly": true,
     "outDir": "lib/types",
+    "lib": ["ES2015", "DOM"]
   },
   "exclude": [
     "node_modules",
