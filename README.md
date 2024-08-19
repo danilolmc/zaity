@@ -1,5 +1,5 @@
 <header>
-    <h2 align="center">Zaity - Your web media accessibility library</h2>
+    <h2 align="center">Zaity - Build acessible user interfaces based upon voice</h2>
     <p align="center">
         <img align="center" src="./logolibrary.svg" width="162px" style="max-width: 100%;">
     </p>
